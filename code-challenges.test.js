@@ -73,11 +73,20 @@ describe("smallestLargest", () => {
 // Create a function named smallestLargest
 // That takes an array as an arguement for the input
 const smallestLargest = (array) => {
+// Create an empty results array that will hold the final array
     resultArray = []
+// Use the .sort method to sort the array from least to greatest
+// The .sort method must contain a compareFunction as a parameter, if it is not provided the elements of the array are converted into strings and sorted alphabetically
+// The compareFunction takes two parameters, the first element and the second element, in order to sort the numbers in ascending order you have to subtract the second element from the first element
+// In order to further manipulate the new array, you need use the .concat method with no argument to return a copy of the manipulated array. Without it, the latter logic will occur twice.
     newArray = array.sort((a, b) => a - b).concat()
+// Remove the first element of the array using the .shift method to get the smallest value and assign it to the variable smallest
     smallest = newArray.shift()
+// Remove the last element of the array using the .pop method to get the largest value and assign it to the variable largest
     largest = newArray.pop()
+// Using the .push method, push the smallest and largest numbers into the result array in that order
     resultArray.push(smallest, largest)
+// return the result array
     return resultArray
 }
 
@@ -92,19 +101,35 @@ console.log(smallestLargest(nums2))
 
 // a) Create a test with an expect statement using the variables provided.
 
-// // Describe the name of the function - 
-// describe("", () => {
-//     // Test what the function does - 
-//         it("", () => {
-//     // Expect the output of the function to be equal to the correct output - 
-//             expect().toEqual()
-//         })
-//     })
-
+// Describe the name of the function - noDuplicates
+describe("noDuplicates", () => {
+    // Test what the function does - returns one array from two given arrays with no duplicate values
+        it("returns one array from two given arrays with no duplicate values", () => {
+    // Expect the output of the function to be equal to the correct output - 
+            expect(noDuplicates(testArray1, testArray2)).toEqual([3, 7, 10, 5, 4, 8, 2, 1])
+        })
+    })
 
 // b) Create the function that makes the test pass.
 
+// Create a function named noDuplicates
+// That takes a dynamic number of arrays as arguements for the input
+const noDuplicates = (...arrays) => {
+// Using the .concat method, concat the dynamic number of arrays with an empty array
+// Assign the new array to a variable
+    let newArray = [].concat(...arrays)
+// Use the .filter method to remove duplicate values
+// Pass in the parameters of value and index into the .filter method
+// Return the result
+    return newArray.filter((value, index) => {
+// Using the .indexOf method, evaluate if the index of the the value is equal to the index
+// This will return only one of duplicate values
+        return newArray.indexOf(value) === index;
+    })
+}
+
 var testArray1 = [3, 7, 10, 5, 4, 3, 3]
 var testArray2 = [7, 8, 2, 3, 1, 5, 4]
+console.log(noDuplicates(testArray1, testArray2))
 // Expected output: [3, 7, 10, 5, 4, 8, 2, 1]
 
